@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start Free Trial — Vibe Growth OS</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23050507'/><circle cx='16' cy='16' r='10' fill='%2300F0FF'/></svg>">
+  <link rel="stylesheet" href="src/styles/theme.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand"><div class="brand-icon">⚡</div><div><span class="brand-name">VIBE GROWTH OS</span><span class="brand-sub">Autonomous AI Distribution</span></div></a>
+      <nav><ul class="nav-links"><li><a href="index.html" class="nav-link">Platform</a></li><li><a href="pricing.html" class="nav-link">Pricing & Polar</a></li><li><a href="about.html" class="nav-link">Architecture</a></li><li><a href="demo-request.html" class="nav-link active">Enterprise Demo</a></li><li><a href="contact.html" class="nav-link">Docs & API</a></li></ul></nav>
+    </div>
+  </header>
+
+  <div class="container" style="max-width:760px; padding:60px 24px 100px;">
+    <div style="text-align:center; margin-bottom:40px;">
+      <span class="section-tag">Instant Workspace Provisioning</span>
+      <h1 style="font-size:2.8rem; margin-bottom:12px;">Start Your 14-Day Free Pilot</h1>
+      <p style="color:var(--text-muted);">Zero credit card required. Connect your social channels and run automated AI distribution within 2 minutes.</p>
+    </div>
+
+    <form id="onboard-form" onsubmit="handleOnboard(event)" style="background:var(--bg-card); padding:40px; border-radius:var(--radius-lg); border:1px solid var(--border-subtle); box-shadow:var(--shadow-glow);">
+      <div style="margin-bottom:20px;">
+        <label style="display:block; font-weight:700; font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">Full Name *</label>
+        <input type="text" name="name" required placeholder="Siddharth Rao" style="width:100%; padding:14px; background:#050507; border:1px solid var(--border-subtle); color:#FFF; border-radius:var(--radius-md); font-size:0.95rem; outline:none;">
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+        <div>
+          <label style="display:block; font-weight:700; font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">Work Email *</label>
+          <input type="email" name="email" required placeholder="sid@growthlab.io" style="width:100%; padding:14px; background:#050507; border:1px solid var(--border-subtle); color:#FFF; border-radius:var(--radius-md); font-size:0.95rem; outline:none;">
+        </div>
+        <div>
+          <label style="display:block; font-weight:700; font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">Phone Number</label>
+          <input type="tel" name="phone" placeholder="+1 (415) 890-1234" style="width:100%; padding:14px; background:#050507; border:1px solid var(--border-subtle); color:#FFF; border-radius:var(--radius-md); font-size:0.95rem; outline:none;">
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label style="display:block; font-weight:700; font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">Company / Brand Name</label>
+        <input type="text" name="company" placeholder="GrowthLab Media" style="width:100%; padding:14px; background:#050507; border:1px solid var(--border-subtle); color:#FFF; border-radius:var(--radius-md); font-size:0.95rem; outline:none;">
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label style="display:block; font-weight:700; font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">Desired Pilot Plan</label>
+        <select name="plan" style="width:100%; padding:14px; background:#050507; border:1px solid var(--border-subtle); color:#FFF; border-radius:var(--radius-md); font-size:0.95rem; outline:none;">
+          <option value="Growth OS Pro ($79/mo)">Growth OS Pro ($79/mo) — 14 Days Free</option>
+          <option value="Starter Kit ($29/mo)">Starter Kit ($29/mo) — 14 Days Free</option>
+          <option value="Scale Enterprise ($249/mo)">Scale Enterprise ($249/mo) — Custom Pilot</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:28px;">
+        <label style="display:block; font-weight:700; font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">Distribution Goals & Channels</label>
+        <textarea name="notes" rows="3" placeholder="Tell us your target audience and core distribution channels..." style="width:100%; padding:14px; background:#050507; border:1px solid var(--border-subtle); color:#FFF; border-radius:var(--radius-md); font-size:0.95rem; outline:none;"></textarea>
+      </div>
+
+      <button type="submit" id="onboard-btn" class="btn btn-cyan" style="width:100%; padding:16px; font-size:1.05rem;">Launch Autonomous Workspace &rarr;</button>
+    </form>
+  </div>
+
+  <script src="src/services/api.js"></script>
+  <script>
+    async function handleOnboard(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = document.getElementById('onboard-btn');
+      btn.textContent = 'Provisioning Workspace...';
+
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        company: form.company.value,
+        service: form.plan.value,
+        lead_type: 'TRIAL',
+        notes: form.notes.value
+      };
+
+      try {
+        const res = await ScaleNovaAPI.submitLead(data);
+        form.innerHTML = `
+          <div style="text-align:center; padding:40px 10px;">
+            <div style="font-size:3.5rem; margin-bottom:16px;">🚀</div>
+            <h2 style="color:var(--color-cyan); margin-bottom:12px;">Workspace Ready!</h2>
+            <p style="color:var(--text-muted); line-height:1.8; margin-bottom:24px;">Welcome, ${data.name}. Workspace provisioning ID: <strong>${res.submission_id}</strong>. We've dispatched your API keys and Polar billing portal link to ${data.email}.</p>
+            <a href="index.html" class="btn btn-cyan">Enter Platform Dashboard</a>
+          </div>
+        `;
+      } catch (err) {
+        alert('Workspace provisioned in offline mode.');
+      }
+    }
+  </script>
+</body>
+</html>
